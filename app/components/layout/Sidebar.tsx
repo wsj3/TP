@@ -8,11 +8,7 @@ export default function Sidebar() {
 
   return (
     <div className="w-64 bg-[#1a1f2b] min-h-screen flex flex-col">
-      <div className="p-4">
-        <h1 className="text-xl text-white mb-8">Therapist's Friend</h1>
-      </div>
-
-      <nav className="flex-1 px-4">
+      <nav className="flex-1 px-4 pt-4">
         <div className="space-y-2">
           <Link 
             href="/" 
