@@ -80,13 +80,13 @@ export default function Sidebar() {
 
           <button 
             onClick={() => setIsEnabled(!isEnabled)}
-            className={`w-full flex items-center p-2 rounded transition-colors ${
+            className={`w-full p-2 rounded transition-colors ${
               isEnabled 
                 ? 'bg-blue-500 hover:bg-blue-600 text-white' 
                 : 'bg-gray-600 hover:bg-gray-700 text-gray-300'
             }`}
           >
-            {isEnabled ? 'Disable AI Assistant' : 'Enable AI Assistant'}
+            AI Assistant {!isEnabled && '(disabled)'}
           </button>
         </div>
       </nav>
