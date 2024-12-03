@@ -2,9 +2,11 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 
 export default function Sidebar() {
   const pathname = usePathname()
+  const [isEnabled, setIsEnabled] = useState(true)
 
   return (
     <div className="w-64 bg-[#1a1f2b] min-h-screen flex flex-col">
@@ -75,14 +77,19 @@ export default function Sidebar() {
             <span>⚙️</span>
             <span>Settings</span>
           </Link>
+
+          <button 
+            onClick={() => setIsEnabled(!isEnabled)}
+            className={`w-full flex items-center p-2 rounded transition-colors ${
+              isEnabled 
+                ? 'bg-blue-500 hover:bg-blue-600 text-white' 
+                : 'bg-gray-600 hover:bg-gray-700 text-gray-300'
+            }`}
+          >
+            {isEnabled ? 'Disable AI Assistant' : 'Enable AI Assistant'}
+          </button>
         </div>
       </nav>
-
-      <div className="p-4">
-        <button className="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
-          AI Assistant
-        </button>
-      </div>
     </div>
   )
 } 
