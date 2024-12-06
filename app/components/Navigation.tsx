@@ -14,10 +14,7 @@ export default function Navigation() {
   }, []);
 
   const handleLogout = () => {
-<<<<<<< HEAD
-=======
     // Clear user data from localStorage
->>>>>>> 3e1e3fc5cca94898f789ee7132bd9d4121e00d23
     localStorage.removeItem('user');
     setIsLoggedIn(false);
     router.push('/login');
@@ -25,11 +22,7 @@ export default function Navigation() {
 
   return (
     <nav className="flex justify-between items-center p-4 bg-gray-800">
-<<<<<<< HEAD
       <a href="/" className="text-white text-xl font-bold">Therapist's Friend</a>
-=======
-      <div className="text-white text-xl font-bold">Therapist's Friend</div>
->>>>>>> 3e1e3fc5cca94898f789ee7132bd9d4121e00d23
       <div className="flex gap-4">
         <a href="/about" className="text-gray-300 hover:text-white">About</a>
         <a href="/help" className="text-gray-300 hover:text-white">Help</a>
