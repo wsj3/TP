@@ -1,5 +1,6 @@
 'use client';
 
+<<<<<<< HEAD
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -39,6 +40,13 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+=======
+export default function DashboardPage() {
+  return (
+    <div className="min-h-screen bg-[#1a1f2b] text-white p-8">
+      <h1 className="text-2xl font-bold mb-4">Welcome to your Dashboard</h1>
+      <p>You are successfully logged in!</p>
+>>>>>>> 3e1e3fc5cca94898f789ee7132bd9d4121e00d23
     </div>
   );
 } 
