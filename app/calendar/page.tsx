@@ -1,50 +1,58 @@
 'use client' 
  
 import { useState } from 'react' 
+import { Calendar } from './components/Calendar' 
+import AppointmentForm from './components/AppointmentForm' 
  
 export default function CalendarPage() { 
-  const [viewMode, setViewMode] = useState('month') 
+  const [showAppointmentForm, setShowAppointmentForm] = useState(false) 
  
   return ( 
-    <div className="p-6"> 
+    <main className="p-4"> 
       <div className="flex justify-between items-center mb-6"> 
-        <h2 className="text-xl text-white">Calendar</h2> 
-        <div className="flex space-x-4"> 
-          <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">New Appointment</button> 
-        </div> 
+        <h1 className="text-2xl font-bold text-white">Calendar</h1> 
+        <button 
+          onClick={() => setShowAppointmentForm(true)} 
+          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded transition-colors" 
+        > 
+          New Appointment 
+        </button> 
       </div> 
  
-      <div className="bg-gray-800 rounded-lg p-6"> 
-        <div className="flex justify-between items-center mb-4"> 
-          <div className="flex bg-gray-700 rounded-lg"> 
-            <button onClick={() => setViewMode('month')} className={`px-4 py-2 rounded-lg ${viewMode === 'month' ? 'bg-blue-500 text-white' : 'text-gray-400'}`}>Month</button> 
-            <button onClick={() => setViewMode('week')} className={`px-4 py-2 rounded-lg ${viewMode === 'week' ? 'bg-blue-500 text-white' : 'text-gray-400'}`}>Week</button> 
-            <button onClick={() => setViewMode('day')} className={`px-4 py-2 rounded-lg ${viewMode === 'day' ? 'bg-blue-500 text-white' : 'text-gray-400'}`}>Day</button> 
-          </div> 
-          <div className="flex items-center space-x-4"> 
-            <button className="text-gray-400 hover:text-white">Previous</button> 
-            <span className="text-white">October 2023</span> 
-            <button className="text-gray-400 hover:text-white">Next</button> 
+      <Calendar /> 
+ 
+      {/* Modal */} 
+      {showAppointmentForm && ( 
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"> 
+          <div className="bg-gray-800 rounded-lg p-6 max-w-md w-full"> 
+            <h2 className="text-xl font-bold mb-4 text-white">Create New Appointment</h2> 
+            <AppointmentForm 
+              onSubmit={async (data) => { 
+                try { 
+                  const response = await fetch('/api/appointments', { 
+                    method: 'POST', 
+                    headers: { 
+                      'Content-Type': 'application/json', 
+                    }, 
+                    body: JSON.stringify(data), 
+                  }) 
+ 
+                  if (!response.ok) { 
+                    throw new Error('Failed to create appointment') 
+                  } 
+ 
+                  setShowAppointmentForm(false) 
+                  window.location.reload() 
+                } catch (error) { 
+                  console.error('Error creating appointment:', error) 
+                  alert('Failed to create appointment') 
+                } 
+              }} 
+              onCancel={() => setShowAppointmentForm(false)} 
+            /> 
           </div> 
         </div> 
- 
-        <div className="grid grid-cols-7 gap-1"> 
-          <div className="text-gray-400 text-sm p-2">Sun</div> 
-          <div className="text-gray-400 text-sm p-2">Mon</div> 
-          <div className="text-gray-400 text-sm p-2">Tue</div> 
-          <div className="text-gray-400 text-sm p-2">Wed</div> 
-          <div className="text-gray-400 text-sm p-2">Thu</div> 
-          <div className="text-gray-400 text-sm p-2">Fri</div> 
-          <div className="text-gray-400 text-sm p-2">Sat</div> 
- 
-          <div className="bg-gray-700 p-2 min-h-[100px] rounded"> 
-            <span className="text-gray-400">1</span> 
-            <div className="mt-2"> 
-              <div className="bg-blue-500 text-white text-sm p-1 rounded mb-1">9:00 AM - John D.</div> 
-            </div> 
-          </div> 
-        </div> 
-      </div> 
-    </div> 
+      )} 
+    </main> 
   ) 
 } 
