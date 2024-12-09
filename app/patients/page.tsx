@@ -1,2 +1,13 @@
 'use client'
-export default function PatientsPage() {  return (    <div className="p-6">      <div className="flex justify-between items-center mb-6">        <h2 className="text-xl text-white">Patients</h2>        <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">          Add New Patient        </button>      </div>      <div className="mb-4">        <input          type="search"          placeholder="Search patients..."          className="w-full p-2 bg-gray-800 text-white rounded"        />      </div>      <div className="grid gap-4">        {/* Patient cards */}        <div className="bg-gray-800 p-4 rounded-lg">          <div className="flex justify-between">            <h3 className="text-white font-semibold">John Doe</h3>            <span className="text-gray-400">ID: 12345</span>          </div>          <div className="text-gray-400 text-sm mt-2">            Next Session: Tomorrow at 9:00 AM          </div>        </div>      </div>    </div>  )} 
+
+import PatientNav from '../components/Patients/PatientNav';
+import PatientList from '../components/Patients/PatientList';
+
+export default function PatientsPage() {
+  return (
+    <div className="container mx-auto p-6">
+      <PatientNav />
+      <PatientList />
+    </div>
+  );
+} 
