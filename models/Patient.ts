@@ -1,29 +1,15 @@
-import mongoose from 'mongoose';
+import mongoose from 'mongoose'
 
-const PatientSchema = new mongoose.Schema({
+const patientSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Name is required'],
-    trim: true
+    required: true
   },
-  email: {
-    type: String,
-    required: [true, 'Email is required'],
-    unique: true,
-    trim: true,
-    lowercase: true
-  },
-  phone: {
-    type: String,
-    required: [true, 'Phone number is required']
-  },
-  dateOfBirth: {
-    type: Date,
-    required: [true, 'Date of birth is required']
-  }
+  // Add other patient fields as needed
 }, {
   timestamps: true
-});
+})
 
-const Patient = mongoose.models.Patient || mongoose.model('Patient', PatientSchema);
-export default Patient; 
+const Patient = mongoose.models.Patient || mongoose.model('Patient', patientSchema)
+
+export default Patient 
