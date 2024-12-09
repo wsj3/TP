@@ -39,16 +39,25 @@ try {
     Write-Host "`nCommitting changes..." -ForegroundColor Yellow
     git commit -m "$commitMessage"
 
-    # Push to GitHub
-    Write-Host "`nPushing to GitHub..." -ForegroundColor Yellow
-    git push
-
-    # Push backup branch
+    # Push backup branch first
     Write-Host "`nPushing backup branch..." -ForegroundColor Yellow
     git push origin $backupBranch
 
+    # Try to push to main
+    Write-Host "`nAttempting to push to main..." -ForegroundColor Yellow
+    $pushResult = git push 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "`nNeed to pull remote changes first..." -ForegroundColor Yellow
+        git pull --rebase
+        
+        Write-Host "`nTrying push again..." -ForegroundColor Yellow
+        git push
+    }
+
     Write-Host "`nBackup complete!" -ForegroundColor Green
     Write-Host "Backup branch '$backupBranch' created and pushed" -ForegroundColor Green
+    Write-Host "`nTo restore from backup if needed:" -ForegroundColor Yellow
+    Write-Host "git checkout $backupBranch" -ForegroundColor Yellow
 } catch {
     Write-Host "`nAn error occurred:" -ForegroundColor Red
     Write-Host $_.Exception.Message -ForegroundColor Red
