@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function Navigation() {
@@ -8,35 +9,52 @@ export default function Navigation() {
   const router = useRouter();
 
   useEffect(() => {
-    // Check if user data exists in localStorage
+    // Check if user exists in localStorage
     const user = localStorage.getItem('user');
     setIsLoggedIn(!!user);
   }, []);
 
   const handleLogout = () => {
-    // Clear user data from localStorage
     localStorage.removeItem('user');
     setIsLoggedIn(false);
     router.push('/login');
   };
 
   return (
-    <nav className="flex justify-between items-center p-4 bg-gray-800">
-      <a href="/" className="text-white text-xl font-bold">Therapist's Friend</a>
+    <nav className="flex items-center justify-between p-4">
+      <Link href="/" className="text-xl font-bold text-white">
+        Therapist's Friend
+      </Link>
+      
       <div className="flex gap-4">
-        <a href="/about" className="text-gray-300 hover:text-white">About</a>
-        <a href="/help" className="text-gray-300 hover:text-white">Help</a>
+        <Link href="/about" className="text-gray-300 hover:text-white">
+          About
+        </Link>
+        <Link href="/help" className="text-gray-300 hover:text-white">
+          Help
+        </Link>
+        
         {isLoggedIn ? (
-          <button 
+          <button
             onClick={handleLogout}
-            className="text-gray-300 hover:text-white cursor-pointer"
+            className="text-gray-300 hover:text-white"
           >
-            Log out
+            Logout
           </button>
         ) : (
           <>
-            <a href="/login" className="text-gray-300 hover:text-white">Login</a>
-            <a href="/signup" className="text-gray-300 hover:text-white">Sign up</a>
+            <Link
+              href="/login"
+              className="text-gray-300 hover:text-white"
+            >
+              Login
+            </Link>
+            <Link
+              href="/signup"
+              className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            >
+              Sign up
+            </Link>
           </>
         )}
       </div>
