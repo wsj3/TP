@@ -3,13 +3,13 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 
 export default function Navigation() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
+    // Check if user exists in localStorage
     const user = localStorage.getItem('user');
     setIsLoggedIn(!!user);
   }, []);
@@ -21,19 +21,10 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="flex items-center justify-between p-4 border-b border-gray-700 bg-gray-900">
-      <div className="flex items-center gap-2">
-        <Image
-          src="/logo.png"
-          alt="Therapist's Friend Logo"
-          width={32}
-          height={32}
-          className="rounded-full"
-        />
-        <Link href="/" className="text-xl font-bold text-white">
-          Therapist's Friend
-        </Link>
-      </div>
+    <nav className="flex items-center justify-between p-4">
+      <Link href="/" className="text-xl font-bold text-white">
+        Therapist's Friend
+      </Link>
       
       <div className="flex gap-4">
         <Link href="/about" className="text-gray-300 hover:text-white">

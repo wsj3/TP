@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-[#0f172a] text-white;
+}
+
+/* Add smooth scrolling for overflow tables */
+.overflow-x-auto {
+  scrollbar-width: thin;
+  scrollbar-color: theme('colors.gray.600') theme('colors.gray.800');
+}
+
+.overflow-x-auto::-webkit-scrollbar {
+  height: 8px;
+}
+
+.overflow-x-auto::-webkit-scrollbar-track {
+  @apply bg-gray-800;
+}
+
+.overflow-x-auto::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded;
+} 
